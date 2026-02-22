@@ -22,6 +22,7 @@ import * as vscodeTypes from './vscodeTypes';
 import { installBrowsers } from './installer';
 import { SettingsModel } from './settingsModel';
 import { BackendServer, BackendClient } from './backend';
+import { RobotFrameworkRecorder } from './robotFrameworkTransformer';
 
 type RecorderMode = 'none' | 'standby' | 'inspecting' | 'recording';
 
@@ -32,6 +33,7 @@ export class ReusedBrowser implements vscodeTypes.Disposable {
   private _cancelRecording: (() => void) | undefined;
   private _isRunningTests?: 'run' | 'debug';
   private _insertedEditActionCount = 0;
+  private _robotRecorder = new RobotFrameworkRecorder();
   private _envProvider: (configFile: string) => NodeJS.ProcessEnv;
   private _disposables: vscodeTypes.Disposable[] = [];
   private _pageCount = 0;
@@ -188,7 +190,10 @@ export class ReusedBrowser implements vscodeTypes.Disposable {
           await editor.edit(async editBuilder => {
             if (!editor)
               return;
-            const action = params.actions[params.actions.length - 1];
+            const rawAction = params.actions[params.actions.length - 1];
+            const action = this._settingsModel.recordingFormat.get() === 'robotframework'
+                ? this._robotRecorder.transformAction(rawAction)
+                : rawAction;
             const newText = indentBlock(action, targetIndentation);
             if (editor.document.getText(editor.selection) !== newText)
               editBuilder.replace(editor.selection, newText);
@@ -322,6 +327,7 @@ export class ReusedBrowser implements vscodeTypes.Disposable {
   private async _doRecord(progress: vscodeTypes.Progress<{ message?: string; increment?: number }>, model: TestModel, testIdAttributeName: string | undefined, token: vscodeTypes.CancellationToken) {
     await this._startBackendIfNeeded(model.config);
     this._insertedEditActionCount = 0;
+    this._robotRecorder.reset();
 
     progress.report({ message: 'starting\u2026' });
 

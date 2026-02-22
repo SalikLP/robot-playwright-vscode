@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <clipPath id="icon-clip">
+      <rect width="128" height="128" rx="8" ry="8"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background: vertical split green | red -->
+  <g clip-path="url(#icon-clip)">
+    <rect x="0" y="0" width="64" height="128" fill="#2EAD33"/>
+    <rect x="64" y="0" width="64" height="128" fill="#D65745"/>
+  </g>
+
+  <!-- Robot face: rounded square outline -->
+  <g transform="translate(64,64)" fill="none" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Head shape: clipped-corner square -->
+    <path d="M-36,-44 L36,-44 L44,-36 L44,36 L36,44 L-36,44 L-44,36 L-44,-36 Z" fill="white" fill-opacity="0.15" stroke="white"/>
+
+    <!-- Left eye: curved arc (winking) -->
+    <path d="M-20,-10 Q-12,-20 -4,-10" fill="none" stroke-width="5"/>
+
+    <!-- Right eye: diagonal slash -->
+    <line x1="8" y1="-18" x2="22" y2="-6" stroke-width="5"/>
+
+    <!-- Mouth: horizontal line -->
+    <line x1="-22" y1="14" x2="22" y2="14" stroke-width="5"/>
+  </g>
+</svg>

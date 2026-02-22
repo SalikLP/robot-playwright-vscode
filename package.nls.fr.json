@@ -1,5 +1,5 @@
 {
-  "description": "Exécutez des tests Playwright Test dans Visual Studio Code.",
+  "description": "Exécutez des tests Playwright avec intégration Robot Framework dans Visual Studio Code.",
   "contributes.command.pw.extension.install": "Installer Playwright",
   "contributes.command.pw.extension.installBrowsers": "Installer les navigateurs Playwright",
   "contributes.command.pw.extension.command.inspect": "Trouver locator",
@@ -23,6 +23,7 @@
   "configuration.playwright.pickLocatorCopyToClipboard": "Copier automatiquement le locator sélectionné dans le presse-papiers.",
   "configuration.playwright.updateSnapshots": "Mettre à jour les captures d'écran",
   "configuration.playwright.updateSourceMethod": "Mettre à jour la méthode source",
+  "configuration.playwright.recordingFormat": "Le format de sortie pour les tests enregistrés (Playwright ou Robot Framework).",
   "views.test.pw.extension.locatorsView": "Localisateurs",
   "views.test.pw.extension.settingsView": "Playwright"
 }

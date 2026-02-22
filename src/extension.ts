@@ -803,9 +803,11 @@ export class Extension implements RunHooks {
   }
 
   private async _createFileForNewTest(model: TestModel, project: TestProject) {
+    const isRobotFramework = this._settingsModel.recordingFormat.get() === 'robotframework';
+    const ext = isRobotFramework ? '.robot' : '.spec.ts';
     let file;
     for (let i = 1; i < 100; ++i) {
-      file = path.join(project.project.testDir, `test-${i}.spec.ts`);
+      file = path.join(project.project.testDir, `test-${i}${ext}`);
       if (fs.existsSync(file))
         continue;
       break;
@@ -813,18 +815,33 @@ export class Extension implements RunHooks {
     if (!file)
       return;
 
-    await fs.promises.writeFile(file, `import { test, expect } from '@playwright/test';
+    let cursorLine: number;
+    let cursorCol: number;
+    let selectionLength: number;
+
+    if (isRobotFramework) {
+      await fs.promises.writeFile(file, `*** Settings ***\nLibrary    Browser\n\n*** Test Cases ***\nTest\n    # Recording...\n`);
+      cursorLine = 5;
+      cursorCol = 4;
+      selectionLength = '# Recording...'.length;
+    } else {
+      await fs.promises.writeFile(file, `import { test, expect } from '@playwright/test';
 
 test('test', async ({ page }) => {
   // Recording...
 });`);
+      cursorLine = 3;
+      cursorCol = 2;
+      selectionLength = '// Recording...'.length;
+    }
 
     await model.handleWorkspaceChange({ created: new Set([file]), changed: new Set(), deleted: new Set() });
     await model.ensureTests([file]);
-
     const document = await this._vscode.workspace.openTextDocument(file);
     const editor = await this._vscode.window.showTextDocument(document);
-    editor.selection = new this._vscode.Selection(new this._vscode.Position(3, 2), new this._vscode.Position(3, 2 + '// Recording...'.length));
+    editor.selection = new this._vscode.Selection(
+        new this._vscode.Position(cursorLine, cursorCol),
+        new this._vscode.Position(cursorLine, cursorCol + selectionLength));
 
     return file;
   }

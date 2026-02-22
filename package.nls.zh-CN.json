@@ -1,5 +1,5 @@
 {
-  "description": "在 Visual Studio Code 中运行 Playwright Test 测试用例.",
+  "description": "在 Visual Studio Code 中运行 Playwright 测试并集成 Robot Framework。",
   "contributes.command.pw.extension.install": "安装 Playwright",
   "contributes.command.pw.extension.installBrowsers": "安装 Playwright 浏览器",
   "contributes.command.pw.extension.command.inspect": "拾取选择器",
@@ -23,6 +23,7 @@
   "configuration.playwright.pickLocatorCopyToClipboard": "自动将选中的定位器复制到剪贴板",
   "configuration.playwright.updateSnapshots": "更新快照",
   "configuration.playwright.updateSourceMethod": "更新源方法",
+  "configuration.playwright.recordingFormat": "录制测试的输出格式（Playwright 或 Robot Framework）。",
   "views.test.pw.extension.locatorsView": "定位器",
   "views.test.pw.extension.settingsView": "Playwright"
 }

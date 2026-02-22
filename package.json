@@ -1,13 +1,13 @@
 {
-  "name": "playwright",
-  "displayName": "Playwright Test for VSCode",
+  "name": "robot-playwright",
+  "displayName": "Robot Framework Playwright Test integration for VSCode",
   "description": "%description%",
-  "icon": "images/playwright-logo.png",
-  "version": "1.1.17",
-  "publisher": "ms-playwright",
-  "repository": "https://github.com/microsoft/playwright-vscode",
+  "icon": "images/robot-playwright-logo.png",
+  "version": "0.1.0",
+  "publisher": "SalikLP",
+  "repository": "https://github.com/SalikLP/robot-playwright-vscode",
   "bugs": {
-    "url": "https://github.com/microsoft/playwright/issues"
+    "url": "https://github.com/SalikLP/robot-playwright-vscode/issues"
   },
   "engines": {
     "vscode": "^1.93.0"
@@ -154,6 +154,15 @@
           ],
           "default": "3way",
           "description": "%configuration.playwright.updateSourceMethod%"
+        },
+        "playwright.recordingFormat": {
+          "type": "string",
+          "enum": [
+            "playwright",
+            "robotframework"
+          ],
+          "default": "robotframework",
+          "description": "%configuration.playwright.recordingFormat%"
         }
       }
     },
@@ -162,7 +171,7 @@
         {
           "id": "playwrightContainer",
           "title": "Playwright",
-          "icon": "images/playwright-logo.png"
+          "icon": "images/robot-playwright-logo.png"
         }
       ]
     },

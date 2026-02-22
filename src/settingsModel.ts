@@ -47,6 +47,7 @@ export class SettingsModel extends DisposableBase {
   updateSnapshots: Setting<'all' | 'changed' | 'missing' | 'none' | 'no-override'>;
   updateSourceMethod: Setting<'overwrite' | 'patch' | '3way' | 'no-override'>;
   pickLocatorCopyToClipboard: Setting<boolean>;
+  recordingFormat: Setting<'playwright' | 'robotframework'>;
 
   constructor(vscode: vscodeTypes.VSCode, context: vscodeTypes.ExtensionContext) {
     super();
@@ -61,6 +62,7 @@ export class SettingsModel extends DisposableBase {
     this.updateSnapshots = this._createSetting('updateSnapshots');
     this.updateSourceMethod = this._createSetting('updateSourceMethod');
     this.pickLocatorCopyToClipboard = this._createSetting('pickLocatorCopyToClipboard');
+    this.recordingFormat = this._createSetting('recordingFormat');
 
     this._disposables.push(
         this._onChange,

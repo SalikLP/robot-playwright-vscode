@@ -290,6 +290,15 @@ function htmlForWebview(vscode: vscodeTypes.VSCode, extensionUri: vscodeTypes.Ur
             <option value="3way">3-way</option>
           </select>
         </div>
+        <div class="hbox">
+          <label id="recordingFormatLabel">${vscode.l10n.t('Recording format')}</label>
+        </div>
+        <div class="combobox">
+          <select setting="recordingFormat" aria-labelledby="recordingFormatLabel">
+            <option value="playwright">Playwright</option>
+            <option value="robotframework">Robot Framework</option>
+          </select>
+        </div>
       </div>
     </body>
     <script src="${script}" nonce="${nonce}"></script>
